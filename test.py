@@ -16,14 +16,14 @@ class TestStringCalculator(unittest.TestCase):
         self.assertEqual(self.calculator.add("48,55"), 103)
         self.assertEqual(self.calculator.add("33,18"), 51)
         self.assertEqual(self.calculator.add("45,2"), 47)
-        self.assertEqual(self.calculator.add("11,2362"), 2373)
+        self.assertEqual(self.calculator.add("11,2362"), 11)
 
     def test_multiple_numbers_returns_sum(self):
         self.assertEqual(self.calculator.add("1,2,3,4"), 10)
         self.assertEqual(self.calculator.add("48,55,12"), 115)
         self.assertEqual(self.calculator.add("33,18,2"), 53)
         self.assertEqual(self.calculator.add("45,2,3"), 50)
-        self.assertEqual(self.calculator.add("11,2362,2"), 2375)
+        self.assertEqual(self.calculator.add("11,2362,2"), 13)
 
     def test_newline_delimiters(self):
         self.assertEqual(self.calculator.add("1\n2"), 3)
@@ -47,6 +47,12 @@ class TestStringCalculator(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             self.calculator.add("//;\n-1;2;-3")
         self.assertEqual(str(context.exception), "negatives not allowed: -1, -3")
+
+    def test_numbers_above_1000_ignored(self):
+        self.assertEqual(self.calculator.add("2,1001"), 2)
+        self.assertEqual(self.calculator.add("1000,1001"), 0)
+        self.assertEqual(self.calculator.add("1\n2,1001"), 3)
+        self.assertEqual(self.calculator.add("//;\n13;1001;2"), 15)
 
 if __name__ == '__main__':
     unittest.main()

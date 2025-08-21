@@ -20,6 +20,8 @@ class StringCalculator:
                 num_int = int(num)
                 if num_int < 0:
                     negatives.append(num)
+                elif num_int >= 1000:
+                    continue
                 else:
                     result += num_int
 
