@@ -3,6 +3,7 @@ class StringCalculator:
         if not numbers:
             return 0
 
+        numbers = numbers.replace("\n", ",")
         num_list = numbers.split(",")
         result = 0
         for num in num_list:

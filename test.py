@@ -25,5 +25,10 @@ class TestStringCalculator(unittest.TestCase):
         self.assertEqual(self.calculator.add("45,2,3"), 50)
         self.assertEqual(self.calculator.add("11,2362,2"), 2375)
 
+    def test_newline_delimiters(self):
+        self.assertEqual(self.calculator.add("1\n2"), 3)
+        self.assertEqual(self.calculator.add("1\n2,3"), 6)
+        self.assertEqual(self.calculator.add("10\n20\n30"), 60)
+
 if __name__ == '__main__':
     unittest.main()
