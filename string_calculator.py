@@ -4,12 +4,9 @@ class StringCalculator:
             return 0
 
         num_list = numbers.split(",")
-        if len(num_list) > 2:
-            raise ValueError("Cannot process more than two numbers")
-
         result = 0
         for num in num_list:
-            if num:
+            if num:  # Ignore empty strings
                 result += int(num)
 
         return result

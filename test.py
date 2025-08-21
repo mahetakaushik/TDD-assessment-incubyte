@@ -18,10 +18,12 @@ class TestStringCalculator(unittest.TestCase):
         self.assertEqual(self.calculator.add("45,2"), 47)
         self.assertEqual(self.calculator.add("11,2362"), 2373)
 
-    def test_more_than_two_numbers_raises_exception(self):
-        with self.assertRaises(ValueError) as context:
-            self.calculator.add("1,2,3")
-        self.assertEqual(str(context.exception), "Cannot process more than two numbers")
+    def test_multiple_numbers_returns_sum(self):
+        self.assertEqual(self.calculator.add("1,2,3,4"), 10)
+        self.assertEqual(self.calculator.add("48,55,12"), 115)
+        self.assertEqual(self.calculator.add("33,18,2"), 53)
+        self.assertEqual(self.calculator.add("45,2,3"), 50)
+        self.assertEqual(self.calculator.add("11,2362,2"), 2375)
 
 if __name__ == '__main__':
     unittest.main()
