@@ -30,5 +30,10 @@ class TestStringCalculator(unittest.TestCase):
         self.assertEqual(self.calculator.add("1\n2,3"), 6)
         self.assertEqual(self.calculator.add("10\n20\n30"), 60)
 
+    def test_custom_delimiter(self):
+        self.assertEqual(self.calculator.add("//;\n1;2"), 3)
+        self.assertEqual(self.calculator.add("//|\n1|2|3"), 6)
+        self.assertEqual(self.calculator.add("//-\n10-20-30"), 60)
+
 if __name__ == '__main__':
     unittest.main()
