@@ -37,6 +37,7 @@ class TestStringCalculator(unittest.TestCase):
         self.assertEqual(self.calculator.add("//*\n1***2***3"), 6)
         self.assertEqual(self.calculator.add("//abc\n1abc2abcabcabc1001"), 3)
         self.assertEqual(self.calculator.add("//[*][%]\n1*2%3"), 6)
+        self.assertEqual(self.calculator.add("//[###][$$$]\n1###2$$$1001"), 3)
 
     def test_negative_numbers_throw_exception(self):
         with self.assertRaises(ValueError) as context:
@@ -58,6 +59,10 @@ class TestStringCalculator(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             self.calculator.add("//[*][%]\n-1*2%-3")
         self.assertEqual(str(context.exception), "negatives not allowed: -1, -3")
+
+        with self.assertRaises(ValueError) as context:
+            self.calculator.add("//[###][$$$]\n1###2$$$-1001")
+        self.assertEqual(str(context.exception), "negatives not allowed: -1001")
 
     def test_numbers_above_1000_ignored(self):
         self.assertEqual(self.calculator.add("2,1001"), 2)
