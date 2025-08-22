@@ -4,15 +4,28 @@ class StringCalculator:
             return 0
 
         delimiter = ","
+        numbers_to_process = numbers
+        delimiters = []
+
         if numbers.startswith("//"):
             numbers_parts = numbers.split("\n", 1)
             delimiter = numbers_parts[0][2:]
-            numbers = numbers_parts[1] if len(numbers_parts) > 1 else ""
+            numbers_to_process = numbers_parts[1] if len(numbers_parts) > 1 else ""
+
+            if delimiter.startswith("[") and "]" in delimiter:
+                delimiter_line = delimiter
+                delimiter = ","
+                while delimiter_line.startswith("[") and "]" in delimiter_line:
+                    end_idx = delimiter_line.index("]")
+                    delimiters.append(delimiter_line[1:end_idx])
+                    delimiter_line = delimiter_line[end_idx + 1:]
 
         if not numbers.startswith("//"):
-            numbers = numbers.replace("\n", delimiter)
+            numbers_to_process = numbers_to_process.replace("\n", delimiter)
+        for delim in delimiters:
+            numbers_to_process = numbers_to_process.replace(delim, delimiter)
 
-        num_list = numbers.split(delimiter)
+        num_list = numbers_to_process.split(delimiter)
         result = 0
         negatives = []
         for num in num_list:
